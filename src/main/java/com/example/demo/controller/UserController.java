@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.service.UserService;
+
+import jakarta.validation.Valid;
+
 import com.example.demo.dto.CreateUserRequest;
 import com.example.demo.dto.UpdateUserRequest;
 import com.example.demo.dto.UserResponse;
@@ -25,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping //posting -> pushing something to the database
-    public UserResponse createUser(@RequestBody CreateUserRequest create){
+    public UserResponse createUser(@Valid  @RequestBody CreateUserRequest create){
         return userService.createUser(create);
     }
 
@@ -35,7 +38,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public UserResponse updateUser(@RequestBody UpdateUserRequest update, @PathVariable Integer id){
+    public UserResponse updateUser(@Valid @RequestBody UpdateUserRequest update, @PathVariable Integer id){
         return userService.updateUser(id, update);
     }
     @DeleteMapping("/{id}") 

@@ -15,6 +15,8 @@ import com.example.demo.dto.SessionResponse;
 import com.example.demo.dto.UpdateSessionRequest;
 import com.example.demo.service.StudySessionService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/session")
 public class SessionController{
@@ -25,7 +27,7 @@ public class SessionController{
     }
 
     @PostMapping
-    public SessionResponse createSession(@RequestBody CreateSessionRequest create){
+    public SessionResponse createSession(@Valid @RequestBody CreateSessionRequest create){
         return sessionService.createSession(create);
     }
 
@@ -43,7 +45,7 @@ public class SessionController{
     }
 
     @PatchMapping("/{id}")
-    public SessionResponse updateSession(@RequestBody UpdateSessionRequest update,@PathVariable Integer id){
+    public SessionResponse updateSession(@Valid @RequestBody UpdateSessionRequest update,@PathVariable Integer id){
         return sessionService.updateSession(id,update);
     }
 

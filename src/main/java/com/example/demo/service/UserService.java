@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 
 import com.example.demo.dto.UserResponse;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.dto.CreateUserRequest;
 import com.example.demo.dto.UpdateUserRequest;
 import com.example.demo.model.User;
@@ -21,12 +22,6 @@ public class UserService {
     public UserService(UserRepository userRepository){this.userRepository=userRepository;}
 
     public UserResponse createUser(CreateUserRequest create){
-        if(create.getUsername()==null){
-            throw new IllegalArgumentException("User needs a username");
-        }
-        if(create.getPassword() == null){
-            throw new IllegalArgumentException("User needs a password");
-        }
         User user = new User(create.getUsername(),create.getPassword(),create.getEmail());
         userRepository.save(user);
         return userToResponse(user);
@@ -34,7 +29,7 @@ public class UserService {
     
     public UserResponse getUserById(Integer id){
         User user = userRepository.findById(id)
-            .orElseThrow(()-> new IllegalArgumentException("User not found with id "+ id));
+            .orElseThrow(()-> new NotFoundException("User not found with id "+ id));
         return userToResponse(user);
     }
 
@@ -44,7 +39,7 @@ public class UserService {
     
     public UserResponse updateUser(Integer id, UpdateUserRequest update){
         User user = userRepository.findById(id)
-            .orElseThrow(()-> new IllegalArgumentException("User not found with id "));
+            .orElseThrow(()-> new NotFoundException("User not found with id "+id));
         if(update.getUsername()!=null){
             user.setUsername(update.getUsername());
         }if(update.getEmail()!=null){

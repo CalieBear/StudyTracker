@@ -1,11 +1,14 @@
 package com.example.demo.dto;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class CreateTaskRequest {
-    
+    @Size(max = 255)
     private String subject;
+    @Size(max = 2000)
     private String description;
     @NotBlank(message = "Task must have a name")
+    @Size(max = 255)
     private String name;
 
     //

@@ -8,6 +8,7 @@ import com.example.demo.model.User;
 import com.example.demo.dto.CreateSessionRequest;
 import com.example.demo.dto.SessionResponse;
 import com.example.demo.dto.UpdateSessionRequest;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.StudySession;
 
 import jakarta.transaction.Transactional;
@@ -26,7 +27,7 @@ public class StudySessionService {
     //CREATE //NEED TO IMPLEMENT USERID
     public SessionResponse createSession(CreateSessionRequest create){
         User user = userRepository.findById(create.getUserId())
-            .orElseThrow(()-> new IllegalArgumentException("User not found with id "+create.getUserId()));
+            .orElseThrow(()-> new NotFoundException("User not found with id "+create.getUserId()));
         StudySession session = new StudySession(create.getSubject(),create.getDescription(),create.getStartTime(),create.getEndTime());
         session.setUser(user);
         validateSession(session);
@@ -41,7 +42,7 @@ public class StudySessionService {
     }
     public SessionResponse getSessionById(Integer id){
         StudySession session= studySessionRepository.findById(id)
-         .orElseThrow(()-> new IllegalArgumentException("Session not found with id "+ id));
+         .orElseThrow(()-> new NotFoundException("Session not found with id "+ id));
         return sessionToResponse(session);
     }
     
@@ -52,7 +53,7 @@ public class StudySessionService {
     @Transactional
     public void deleteAllUserSessions(Integer userId){
         User user = userRepository.findById(userId)
-            .orElseThrow(()-> new IllegalArgumentException("User not found with id" + userId));
+            .orElseThrow(()-> new NotFoundException("User not found with id" + userId));
         studySessionRepository.deleteAllByUser(user);
     }
 
@@ -61,7 +62,7 @@ public class StudySessionService {
         //find verify userId param is the same as task's userId
         //code here
         StudySession session = studySessionRepository.findById(id)
-            .orElseThrow(()-> new IllegalArgumentException("Study Session not found with id "));
+            .orElseThrow(()-> new NotFoundException("Study Session not found with id "+ id));
         if(update.getSubject()!=null){
             session.setSubject(update.getSubject());
         }if(update.getDescription()!=null){

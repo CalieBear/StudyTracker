@@ -1,12 +1,18 @@
 package com.example.demo.dto;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class CreateUserRequest {
-    //NEEDS ALL THREE VALUES
     @NotBlank(message = "User must have a username")
+    @Size(max = 255)
     private String username;
     @NotBlank(message = "User must have a password")
+    @Size(min = 8, max = 50)
+    //SHOULD CONFIRM PASSWORD
     private String password;
+    @Email
+    @Size(max = 255)
     private String email;
 
     public CreateUserRequest(){}

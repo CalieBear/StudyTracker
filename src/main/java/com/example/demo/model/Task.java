@@ -66,7 +66,7 @@ public class Task {
     public User getUser(){return user;}
 
     //Setters
-    public void setId(int id){this.id=id;}
+    public void setId(Integer id){this.id=id;}
     public void setSubject(String subject){this.subject=subject;}
     public void setName(String name){this.name=name;}
     public void setDescription(String description){this.description= description;}

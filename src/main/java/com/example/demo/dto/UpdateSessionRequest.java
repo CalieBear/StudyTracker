@@ -2,10 +2,17 @@ package com.example.demo.dto;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Size;
+
 public class UpdateSessionRequest {
+    @Size(max = 255)
     private String subject;
+    @Size(max = 2000)
     private String description;
+    //ASSERT BEFORE END TIME
     private LocalDateTime startTime; 
+    //ASSERT AFTER START TIME
     private LocalDateTime endTime; 
 
     public UpdateSessionRequest(){}
@@ -25,4 +32,12 @@ public class UpdateSessionRequest {
     public void setDescription(String description){this.description=description;}
     public void setStartTime(LocalDateTime startTime){this.startTime=startTime;}
     public void setEndTime(LocalDateTime endTime){this.endTime=endTime;}
+
+    @AssertTrue(message = "Endtime must be after Start Time")
+    public boolean timeValidation(){
+        if(endTime!=null && startTime!=null){
+            return endTime.isAfter(startTime);
+        }
+        return true;
+    }
 }

@@ -1,9 +1,14 @@
 package com.example.demo.dto;
 import com.example.demo.model.Status;
 
+import jakarta.validation.constraints.Size;
+
 public class UpdateTaskRequest {
+    @Size(max=255)
     private String subject;
+    @Size(max=2000)
     private String description;
+    @Size(max=255)
     private String name;
     private Status status;
 

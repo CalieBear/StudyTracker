@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dto.CreateTaskRequest;
 import com.example.demo.dto.TaskResponse;
 import com.example.demo.dto.UpdateTaskRequest;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Status;
 import com.example.demo.model.Task;
 import com.example.demo.repository.TaskRepository;
@@ -31,11 +32,8 @@ public class TaskService {
 
     //CREATE
     public TaskResponse createTask(CreateTaskRequest create, User currentUser){  //TEMP GETS USERID FROM DTO
-        if(create.getName()==null){
-            throw new IllegalArgumentException("Task name cannot be empty");
-        }
         User user = userRepository.findById(create.getUserId())
-            .orElseThrow(()-> new IllegalArgumentException("User not found with id "+create.getUserId()));
+            .orElseThrow(()-> new NotFoundException("User not found with id "+create.getUserId()));
         Task task = new Task(user, create.getSubject(),create.getName(),create.getDescription(),Status.NOT_STARTED);//current user not made yet
         task = taskRepository.save(task);
         return taskToResponse(task);
@@ -48,28 +46,28 @@ public class TaskService {
     }
     public TaskResponse getTaskById(Integer id){
         Task task = taskRepository.findById(id)
-            .orElseThrow(()-> new IllegalArgumentException("Task not found with id "+ id));
+            .orElseThrow(()-> new NotFoundException("Task not found with id "+ id));
         return taskToResponse(task);
     }
     
-    //DELETE TASKS //might need to change return
+    //DELETE TASKS 
     public void deleteById(Integer id){ 
         Task task = taskRepository.findById(id)
-            .orElseThrow(()-> new IllegalArgumentException("Task not found with id "+ id));
+            .orElseThrow(()-> new NotFoundException("Task not found with id "+ id));
         //USER AUTHENTICATION HERE
         taskRepository.delete(task);
     }
     @Transactional
     public void deleteAllByUser(Integer userId){
         User user = userRepository.findById(userId)
-            .orElseThrow(()-> new IllegalArgumentException("User not found with id" + userId));
+            .orElseThrow(()-> new NotFoundException("User not found with id" + userId));
         taskRepository.deleteAllByUser(user);
     }
 
     public TaskResponse updateTask(Integer id, UpdateTaskRequest update){
         //find verify userId param is the same as task's userId
         Task task = taskRepository.findById(id)
-            .orElseThrow(()-> new IllegalArgumentException("Task not found with id "));
+            .orElseThrow(()-> new NotFoundException("Task not found with id "+ id));
         if(update.getName()!=null){
             task.setName(update.getName());
         }if(update.getDescription()!=null){

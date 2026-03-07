@@ -1,9 +1,16 @@
 package com.example.demo.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
+
 public class UpdateUserRequest {
     //VALUES ARE OPTIONAL
+   @Size(max = 255)
     private String username;
+    @Size(min = 8, max = 50)
     private String password;
+    @Email
+    @Size(max = 255)
     private String email;
 
     public UpdateUserRequest(){}

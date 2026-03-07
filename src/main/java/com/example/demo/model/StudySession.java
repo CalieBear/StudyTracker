@@ -51,6 +51,7 @@ public class StudySession {
     public User getUser(){return user;}
 
     //setters
+    public void setId(Integer id){this.id=id;}
     public void setSubject(String subject){this.subject=subject;}
     public void setDescription(String description){this.description=description;}
     public void setStartTime(LocalDateTime startTime){this.startTime=startTime;}

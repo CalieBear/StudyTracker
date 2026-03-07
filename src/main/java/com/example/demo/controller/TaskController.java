@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.service.TaskService;
+
+import jakarta.validation.Valid;
+
 import com.example.demo.dto.CreateTaskRequest;
 import com.example.demo.dto.TaskResponse;
 import com.example.demo.dto.UpdateTaskRequest;
@@ -29,7 +32,7 @@ public class TaskController {
 
     //CREATE
     @PostMapping
-    public TaskResponse createTask(@RequestBody CreateTaskRequest task, User user){//curenty user
+    public TaskResponse createTask(@Valid  @RequestBody CreateTaskRequest task, User user){//curenty user
         return taskService.createTask(task,user);
     }
 
@@ -62,7 +65,7 @@ public class TaskController {
     @PatchMapping("/{id}")
     public TaskResponse updateTask(
         @PathVariable Integer id,
-        @RequestBody UpdateTaskRequest update
+        @Valid @RequestBody UpdateTaskRequest update
     ){
         return taskService.updateTask(id, update);
     }
