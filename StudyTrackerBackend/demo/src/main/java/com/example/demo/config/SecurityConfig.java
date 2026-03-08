@@ -31,7 +31,7 @@ public class SecurityConfig {
             )
             .formLogin(form -> form //WHEN TESTING NEEDS TO BE FORM-DATA
                 .loginProcessingUrl("/login") //LOGIN
-                .successHandler((request, response, autheentaction) -> {
+                .successHandler((request, response, authentaction) -> {
                     response.setStatus(200);
                     response.setContentType("application/json");
                 })

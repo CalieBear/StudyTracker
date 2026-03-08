@@ -29,7 +29,7 @@ public class SessionController{
     }
 
     @PostMapping
-    public SessionResponse createSession(@Valid @RequestBody CreateSessionRequest create,@AuthenticationPrincipal User currentUser){
+    public SessionResponse createSession(@Valid @RequestBody CreateSessionRequest create, @AuthenticationPrincipal User currentUser){
         return sessionService.createSession(create,currentUser);
     }
 
@@ -48,17 +48,17 @@ public class SessionController{
     }
 
     @PatchMapping("/{id}")
-    public SessionResponse updateSession(@Valid @RequestBody UpdateSessionRequest update,@PathVariable Integer id,@AuthenticationPrincipal User currentUser){
+    public SessionResponse updateSession(@PathVariable Integer id, @Valid @RequestBody UpdateSessionRequest update, @AuthenticationPrincipal User currentUser){
         return sessionService.updateSession(id,update,currentUser);
     }
 
     @DeleteMapping("/{id}") 
-    public void deleteSession(@PathVariable Integer id,@AuthenticationPrincipal User currentUser){
+    public void deleteSession(@PathVariable Integer id, @AuthenticationPrincipal User currentUser){
         sessionService.deleteById(id,currentUser);
     }
     @DeleteMapping() 
     public void deleteByUser(@AuthenticationPrincipal User currentUser){
-        sessionService.deleteAllUserSessions(currentUser);//PLACEHOLDER !!!
+        sessionService.deleteAllUserSessions(currentUser);
     }
 
     

@@ -24,7 +24,6 @@ public class Task {
     private String subject;
     private String description;
     private String name;
-    // private String status;
     
     @Enumerated(EnumType.STRING)
     private Status status;

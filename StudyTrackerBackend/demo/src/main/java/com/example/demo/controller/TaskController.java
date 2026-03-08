@@ -44,17 +44,17 @@ public class TaskController {
         @RequestParam(required = false)Status status,
         @AuthenticationPrincipal User currentUser
     ){
-        return taskService.getTasks(subject,status,currentUser);
+        return taskService.getTasks(subject, status, currentUser);
     }
     
     @GetMapping("/{id}") 
-    public TaskResponse getTaskById(@PathVariable Integer id,@AuthenticationPrincipal User currentUser){
-        return taskService.getTaskById(id,currentUser);
+    public TaskResponse getTaskById(@PathVariable Integer id, @AuthenticationPrincipal User currentUser){
+        return taskService.getTaskById(id, currentUser);
     }
 
     //DELETE
     @DeleteMapping("/{id}") 
-    public void deleteTaskById(@PathVariable Integer id,@AuthenticationPrincipal User currentUser){
+    public void deleteTaskById(@PathVariable Integer id, @AuthenticationPrincipal User currentUser){
         taskService.deleteById(id,currentUser);
     }
 
@@ -70,6 +70,6 @@ public class TaskController {
         @Valid @RequestBody UpdateTaskRequest update,
         @AuthenticationPrincipal User currentUser
     ){
-        return taskService.updateTask(id, update,currentUser);
+        return taskService.updateTask(id, update, currentUser);
     }
 }

@@ -27,18 +27,18 @@ public class UserController {
         this.userService=userService;
     }
 
-    @PostMapping //posting -> pushing something to the database
+    @PostMapping 
     public UserResponse createUser(@Valid  @RequestBody CreateUserRequest create){
         return userService.createUser(create);
     }
 
     @GetMapping("/{id}")
-    public UserResponse getUserById(@PathVariable Integer id){ //should be get user, and get the id from authenticated user
+    public UserResponse getUserById(@PathVariable Integer id){ 
         return userService.getUserById(id);
     }
 
     @PatchMapping("/{id}")
-    public UserResponse updateUser(@Valid @RequestBody UpdateUserRequest update, @PathVariable Integer id){
+    public UserResponse updateUser(@PathVariable Integer id, @Valid @RequestBody UpdateUserRequest update){
         return userService.updateUser(id, update);
     }
     @DeleteMapping("/{id}") 

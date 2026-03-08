@@ -21,7 +21,7 @@ public class StudySessionService {
         this.studySessionRepository=studySessionRepository;
     }
 
-    //CREATE //NEED TO IMPLEMENT USERID
+    //CREATE
     public SessionResponse createSession(CreateSessionRequest create,User currentUser){
         StudySession session = new StudySession(create.getSubject(),create.getDescription(),create.getStartTime(),create.getEndTime());
         session.setUser(currentUser);
