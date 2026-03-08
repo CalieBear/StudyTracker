@@ -10,6 +10,7 @@ import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -17,12 +18,13 @@ import org.springframework.stereotype.Service;
 public class UserService {
     
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository){this.userRepository=userRepository;}
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){this.userRepository=userRepository;this.passwordEncoder=passwordEncoder;}
 
     public UserResponse createUser(CreateUserRequest create){
-        User user = new User(create.getUsername(),create.getPassword(),create.getEmail());
+        User user = new User(create.getUsername(),passwordEncoder.encode(create.getPassword()),create.getEmail());
         userRepository.save(user);
         return userToResponse(user);
     }

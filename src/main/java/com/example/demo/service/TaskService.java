@@ -13,8 +13,6 @@ import com.example.demo.model.Status;
 import com.example.demo.model.Task;
 import com.example.demo.repository.TaskRepository;
 import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
-
 import jakarta.transaction.Transactional;
 
 //holds the logic, verifing if input or requests are valid
@@ -22,51 +20,45 @@ import jakarta.transaction.Transactional;
 public class TaskService {
 
     private final TaskRepository taskRepository;
-    private final UserRepository userRepository;
     
     @Autowired 
-    public TaskService(TaskRepository taskRepository, UserRepository userRepository){
+    public TaskService(TaskRepository taskRepository){
         this.taskRepository=taskRepository;
-        this.userRepository=userRepository;
     }
 
     //CREATE
     public TaskResponse createTask(CreateTaskRequest create, User currentUser){  //TEMP GETS USERID FROM DTO
-        User user = userRepository.findById(create.getUserId())
-            .orElseThrow(()-> new NotFoundException("User not found with id "+create.getUserId()));
-        Task task = new Task(user, create.getSubject(),create.getName(),create.getDescription(),Status.NOT_STARTED);//current user not made yet
+        Task task = new Task(currentUser, create.getSubject(),create.getName(),create.getDescription(),Status.NOT_STARTED);//current user not made yet
         task = taskRepository.save(task);
         return taskToResponse(task);
     }
 
     //GET TASKS
-    public List<TaskResponse> getTasks(String subject, Status status){
-        List<Task> tasks=taskRepository.getTasks(1, subject, status); //REPO DEALS WITH NULL
+    public List<TaskResponse> getTasks(String subject, Status status, User currentUser){
+        List<Task> tasks=taskRepository.getTasks(currentUser, subject, status); //REPO DEALS WITH NULL
         return tasks.stream().map(this::taskToResponse).toList();
     }
-    public TaskResponse getTaskById(Integer id){
-        Task task = taskRepository.findById(id)
+    public TaskResponse getTaskById(Integer id, User currentUser){
+        Task task = taskRepository.findByIdAndUser(id,currentUser)
             .orElseThrow(()-> new NotFoundException("Task not found with id "+ id));
         return taskToResponse(task);
     }
     
     //DELETE TASKS 
-    public void deleteById(Integer id){ 
-        Task task = taskRepository.findById(id)
+    public void deleteById(Integer id,User currentUser){ 
+        Task task = taskRepository.findByIdAndUser(id,currentUser)
             .orElseThrow(()-> new NotFoundException("Task not found with id "+ id));
         //USER AUTHENTICATION HERE
         taskRepository.delete(task);
     }
     @Transactional
-    public void deleteAllByUser(Integer userId){
-        User user = userRepository.findById(userId)
-            .orElseThrow(()-> new NotFoundException("User not found with id" + userId));
-        taskRepository.deleteAllByUser(user);
+    public void deleteAllByUser(User currentUser){
+        taskRepository.deleteAllByUser(currentUser);
     }
 
-    public TaskResponse updateTask(Integer id, UpdateTaskRequest update){
+    public TaskResponse updateTask(Integer id, UpdateTaskRequest update, User currentUser){
         //find verify userId param is the same as task's userId
-        Task task = taskRepository.findById(id)
+        Task task = taskRepository.findByIdAndUser(id,currentUser)
             .orElseThrow(()-> new NotFoundException("Task not found with id "+ id));
         if(update.getName()!=null){
             task.setName(update.getName());

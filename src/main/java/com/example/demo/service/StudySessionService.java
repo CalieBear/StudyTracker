@@ -3,7 +3,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.repository.StudySessionRepository;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.model.User;
 import com.example.demo.dto.CreateSessionRequest;
 import com.example.demo.dto.SessionResponse;
@@ -16,52 +15,48 @@ import jakarta.transaction.Transactional;
 public class StudySessionService {
     
     private final StudySessionRepository studySessionRepository;
-    private final UserRepository userRepository;
 
     @Autowired
-    public StudySessionService(StudySessionRepository studySessionRepository, UserRepository userRepository){
+    public StudySessionService(StudySessionRepository studySessionRepository){
         this.studySessionRepository=studySessionRepository;
-        this.userRepository=userRepository;
     }
 
     //CREATE //NEED TO IMPLEMENT USERID
-    public SessionResponse createSession(CreateSessionRequest create){
-        User user = userRepository.findById(create.getUserId())
-            .orElseThrow(()-> new NotFoundException("User not found with id "+create.getUserId()));
+    public SessionResponse createSession(CreateSessionRequest create,User currentUser){
         StudySession session = new StudySession(create.getSubject(),create.getDescription(),create.getStartTime(),create.getEndTime());
-        session.setUser(user);
+        session.setUser(currentUser);
         validateSession(session);
         studySessionRepository.save(session);
         return sessionToResponse(session);
     }
 
     //GETTERS
-    public List<SessionResponse> getSessions(Integer userId, String subject){
-        List<StudySession> sessions= studySessionRepository.getTasks(userId, subject);
+    public List<SessionResponse> getSessions(String subject,User currentUser){
+        List<StudySession> sessions= studySessionRepository.getSessions(currentUser, subject);
         return sessions.stream().map(this::sessionToResponse).toList();
     }
-    public SessionResponse getSessionById(Integer id){
-        StudySession session= studySessionRepository.findById(id)
+
+    public SessionResponse getSessionById(Integer id, User currenUser){
+        StudySession session= studySessionRepository.findByIdAndUser(id,currenUser)
          .orElseThrow(()-> new NotFoundException("Session not found with id "+ id));
         return sessionToResponse(session);
     }
     
     //DELETE
-    public void deleteById(Integer id){
-        studySessionRepository.deleteById(id);
+    public void deleteById(Integer id, User currentUser){
+        StudySession session = studySessionRepository.findByIdAndUser(id,currentUser)
+            .orElseThrow(()-> new NotFoundException("Session not found with id "+ id));
+        studySessionRepository.delete(session);
     }
+    
     @Transactional
-    public void deleteAllUserSessions(Integer userId){
-        User user = userRepository.findById(userId)
-            .orElseThrow(()-> new NotFoundException("User not found with id" + userId));
-        studySessionRepository.deleteAllByUser(user);
+    public void deleteAllUserSessions(User currentUser){
+        studySessionRepository.deleteAllByUser(currentUser);
     }
 
     //UPDATE
-    public SessionResponse updateSession(Integer id,UpdateSessionRequest update){
-        //find verify userId param is the same as task's userId
-        //code here
-        StudySession session = studySessionRepository.findById(id)
+    public SessionResponse updateSession(Integer id,UpdateSessionRequest update, User currentUser){
+        StudySession session = studySessionRepository.findByIdAndUser(id,currentUser)
             .orElseThrow(()-> new NotFoundException("Study Session not found with id "+ id));
         if(update.getSubject()!=null){
             session.setSubject(update.getSubject());
@@ -83,9 +78,9 @@ public class StudySessionService {
             throw new IllegalArgumentException("Session cant already have an id");
         }
         if(session.getEndTime()==null){
-            studySessionRepository.existsActiveSession(session.getUser().getId());
+            studySessionRepository.existsActiveSession(session.getUser());
         }else{
-            studySessionRepository.existsOverlappingSession(session.getUser().getId(),session.getStartTime(),session.getEndTime());
+            studySessionRepository.existsOverlappingSession(session.getUser(),session.getStartTime(),session.getEndTime());
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -32,41 +33,43 @@ public class TaskController {
 
     //CREATE
     @PostMapping
-    public TaskResponse createTask(@Valid  @RequestBody CreateTaskRequest task, User user){//curenty user
-        return taskService.createTask(task,user);
+    public TaskResponse createTask(@Valid  @RequestBody CreateTaskRequest task, @AuthenticationPrincipal User currentUser){//curenty user
+        return taskService.createTask(task,currentUser);
     }
 
     //GETTERS
     @GetMapping
     public List<TaskResponse> getTasks( 
         @RequestParam(required = false)String subject,
-        @RequestParam(required = false)Status status
+        @RequestParam(required = false)Status status,
+        @AuthenticationPrincipal User currentUser
     ){
-        return taskService.getTasks(subject,status);
+        return taskService.getTasks(subject,status,currentUser);
     }
     
     @GetMapping("/{id}") 
-    public TaskResponse getTaskById(@PathVariable Integer id){
-        return taskService.getTaskById(id);
+    public TaskResponse getTaskById(@PathVariable Integer id,@AuthenticationPrincipal User currentUser){
+        return taskService.getTaskById(id,currentUser);
     }
 
     //DELETE
     @DeleteMapping("/{id}") 
-    public void deleteTaskById(@PathVariable Integer id){
-        taskService.deleteById(id);
+    public void deleteTaskById(@PathVariable Integer id,@AuthenticationPrincipal User currentUser){
+        taskService.deleteById(id,currentUser);
     }
 
     @DeleteMapping
-    public void deleteAllTasksForUser(){
-        taskService.deleteAllByUser(1);
+    public void deleteAllTasksForUser(@AuthenticationPrincipal User currentUser){
+        taskService.deleteAllByUser(currentUser);
     }
 
     //UPDATE
     @PatchMapping("/{id}")
     public TaskResponse updateTask(
         @PathVariable Integer id,
-        @Valid @RequestBody UpdateTaskRequest update
+        @Valid @RequestBody UpdateTaskRequest update,
+        @AuthenticationPrincipal User currentUser
     ){
-        return taskService.updateTask(id, update);
+        return taskService.updateTask(id, update,currentUser);
     }
 }

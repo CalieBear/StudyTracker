@@ -3,7 +3,7 @@ package com.example.demo.dto;
 import java.time.LocalDateTime;
 
 public class SessionResponse {
-     private String subject;
+    private String subject;
     private String description;
     private LocalDateTime startTime; 
     private LocalDateTime endTime; 

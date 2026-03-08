@@ -28,12 +28,6 @@ public class CreateTaskRequest {
     public void setName(String name){this.name=name;}
     public void setDescription(String description){this.description= description;}
 
-
-
-    //TEMP
-    private Integer userId;
-    public void setUserId(Integer userId){this.userId=userId;}
-    public Integer getUserId(){return userId;}
 }
 
 
