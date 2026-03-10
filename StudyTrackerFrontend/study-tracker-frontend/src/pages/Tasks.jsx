@@ -41,12 +41,15 @@ function Tasks(){
     function openCreateForm(){
         setShowCreateForm(true);
     }
-    function exitCreateForm(newTask){
+    function exitCreateForm(){
         setShowCreateForm(false);
+    }
+    function taskCreated(newTask){
         if(newTask!=null){
             setTasks([...tasks,newTask])
         }
     }
+
     function deleteTask(taskId){
         fetch("http://localhost:8080/tasks/"+taskId,{
             method: "DELETE",
@@ -79,7 +82,7 @@ function Tasks(){
         <TaskList tasks = {tasks} onTaskClick={openTaskCard} />
         {showTaskCard && <TaskCard task = {selectedTask} onExitClick = {exitTaskCard} onEditClick = {openEditForm} onDeleteClick ={()=> deleteTask(selectedTask.id)}/>}
         {showEditForm && <EditTaskForm/>}
-        {showCreateForm && <CreateTaskForm onSubmitClick = {exitCreateForm}/>}
+        {showCreateForm && <CreateTaskForm onClose = {exitCreateForm} onTaskSubmit={taskCreated}/>}
         <button onClick={openCreateForm}>Create</button>
     </div>
 }

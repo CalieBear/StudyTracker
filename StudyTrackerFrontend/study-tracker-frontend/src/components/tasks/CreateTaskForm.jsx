@@ -1,6 +1,6 @@
 
 import {useState} from "react";
-function CreateTaskForm(onSubmitClick){
+function CreateTaskForm({onClose, onTaskSubmit}){
     const [name, setName]=useState("");
     const [subject, setSubject]=useState("");
     const [status, setStatus]=useState("");
@@ -20,14 +20,19 @@ function CreateTaskForm(onSubmitClick){
             body: JSON.stringify({
                 name: name,
                 subject: subject || null,
-                status: status || NOT_STARTED,
+                status: status || "NOT_STARTED",
                 description: description || null 
             })
         }).then(res => 
                 {if(res.ok){
-                    onSubmitClick(res)
+                    return res.json();
                 }else{
                     setError("Task Values Invalid");
+                }
+            }).then(newTask => {
+                if(newTask){
+                    onTaskSubmit(newTask);
+                    onClose();
                 }
             })
             .catch(err => setError("Task Creation Error"));

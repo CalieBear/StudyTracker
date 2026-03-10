@@ -28,7 +28,7 @@ public class TaskService {
 
     //CREATE
     public TaskResponse createTask(CreateTaskRequest create, User currentUser){  //TEMP GETS USERID FROM DTO
-        Task task = new Task(currentUser, create.getSubject(),create.getName(),create.getDescription(),Status.NOT_STARTED);//current user not made yet
+        Task task = new Task(currentUser, create.getSubject(),create.getName(),create.getDescription(),create.getStatus());//current user not made yet
         task = taskRepository.save(task);
         return taskToResponse(task);
     }

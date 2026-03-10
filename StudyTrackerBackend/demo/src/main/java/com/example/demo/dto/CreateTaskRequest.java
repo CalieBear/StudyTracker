@@ -29,12 +29,14 @@ public class CreateTaskRequest {
     public String getSubject(){return subject;}
     public String getName(){return name;}
     public String getDescription(){return description;}
-    
+    public Status getStatus(){return status;}
+
+
     //SETTERS
     public void setSubject(String subject){this.subject=subject;}
     public void setName(String name){this.name=name;}
     public void setDescription(String description){this.description= description;}
-
+    public void setStatus(Status status){this.status=status;}
 }
 
 
