@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-import java.util.List;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,7 +7,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import com.example.demo.service.UserService;
 
 import jakarta.validation.Valid;
@@ -46,10 +45,14 @@ public class UserController {
         userService.deleteById(id);
     }
 
-    //TEMPORARY
-    @GetMapping //getting -> getting something from the database
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
+    @GetMapping("/me")
+    public UserResponse getCurrentUser(@AuthenticationPrincipal User currentUser){
+        return userService.userToResponse(currentUser);
     }
+    // //TEMPORARY
+    // @GetMapping //getting -> getting something from the database
+    // public List<User> getAllUsers(){
+    //     return userService.getAllUsers();
+    // }
 
 }
