@@ -126,6 +126,7 @@ frontend/
 3. **Run the application**
    ```bash
    mvn spring-boot:run
+   npm run dev
    ```
 
 4. **Open the frontend** by opening `frontend/login.html` in your browser
