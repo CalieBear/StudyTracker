@@ -1,8 +1,4 @@
 //todo
-//display tasks
-//create tasks
-//delete tasks
-//edit tasks
 //find tasks by filter
 
 import { useEffect,useState } from "react"
@@ -14,13 +10,20 @@ import EditTaskForm from "../components/tasks/EditTaskForm";
 function Tasks(){
     const [tasks, setTasks]= useState([]);
     const [filter, setFilter] = useState({subject: "", status:""});
-    const [error, setError]= useState("");
+    const [displayTasks, setDisplayTasks]=useState([]);
 
     const [selectedTask, setSelectedTask] =  useState(null);
     const [showTaskCard, setShowTaskCard] =  useState(false);
     const [showCreateForm, setShowCreateForm] =  useState(false);
     const [showEditForm, setShowEditForm] =  useState(false);
 
+    //FILTER
+    function setFilter(){
+        //would it be better to sort them by collumns then have a search box
+        
+    }
+
+    //TASK CARD
     function openTaskCard(task){
         setSelectedTask(task);
         setShowTaskCard(true);
@@ -30,6 +33,7 @@ function Tasks(){
         setShowTaskCard(false);
         setSelectedTask(null);
     }
+    //EDIT FORM
     function openEditForm(){
         setShowTaskCard(false);
         setShowEditForm(true);
@@ -38,6 +42,10 @@ function Tasks(){
         setShowEditForm(false);
         setSelectedTask(null);
     }
+    function taskEdited(task){
+        setTasks(tasks.map(t => t.id === task.id ? task : t));
+    }
+    //CREATE FORM
     function openCreateForm(){
         setShowCreateForm(true);
     }
@@ -49,7 +57,7 @@ function Tasks(){
             setTasks([...tasks,newTask])
         }
     }
-
+    //DELETE TASK
     function deleteTask(taskId){
         fetch("http://localhost:8080/tasks/"+taskId,{
             method: "DELETE",
@@ -66,7 +74,6 @@ function Tasks(){
         })
         .catch(()=> setError("Unexpected Error Occured"));
     }
-    
 
     useEffect(()=>{
         fetch("http://localhost:8080/tasks",{
@@ -74,16 +81,14 @@ function Tasks(){
         }).then (res=> res.json())
         .then (data =>setTasks(data))
         .catch(()=> setError("Unexepcted Error Occured"))
-    },[])//want this to run when filter changes and when first loaded, [] for first loaded, and when task is created or edited 
-
-
+    },[])//NEEDS TO RUN WHEN FILTER CHANGED
 
     return <div>
-        <TaskList tasks = {tasks} onTaskClick={openTaskCard} />
+        {(!showCreateForm && !showEditForm && !showTaskCard) && <TaskList tasks = {displayTasks} onTaskClick={openTaskCard} /> }
         {showTaskCard && <TaskCard task = {selectedTask} onExitClick = {exitTaskCard} onEditClick = {openEditForm} onDeleteClick ={()=> deleteTask(selectedTask.id)}/>}
-        {showEditForm && <EditTaskForm/>}
+        {showEditForm && <EditTaskForm task = {selectedTask} onClose={exitEditForm} onTaskSubmit={taskEdited} />}
         {showCreateForm && <CreateTaskForm onClose = {exitCreateForm} onTaskSubmit={taskCreated}/>}
-        <button onClick={openCreateForm}>Create</button>
+        {(!showCreateForm && !showEditForm && !showTaskCard) && <button onClick={openCreateForm}>Create</button>}
     </div>
 }
 export default Tasks

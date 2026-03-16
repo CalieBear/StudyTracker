@@ -67,6 +67,7 @@ function CreateTaskForm({onClose, onTaskSubmit}){
             <button type = "submit">Submit</button>
         </form>
         {error && <p>{error}</p>}
+        <button onClick={onClose}>Exit</button>
     </div>)
 }
 export default CreateTaskForm
