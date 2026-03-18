@@ -25,7 +25,6 @@ function Tasks(){
     }
     //EDIT FORM
     function openEditForm(){
-        setShowTaskCard(false);
         setShowEditForm(true);
     }
     function exitEditForm(){
@@ -84,7 +83,7 @@ function Tasks(){
                     <TaskList tasks = {tasks} onTaskClick={openTaskCard} />
                 </div>
                 <div style={{display: 'flex', flexDirection: 'column'}}>
-                    {(!showCreateForm && !showEditForm ) && <button className="button" style={{width: '100%', marginBottom:'5%'}} onClick={openCreateForm}>Create New Task</button>}
+                    <button className="button" style={{width: '100%', marginBottom:'5%'}} onClick={openCreateForm}>Create New Task</button>
                     <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
                         <TaskCard task = {selectedTask} onEditClick = {openEditForm} onDeleteClick ={()=> deleteTask(selectedTask.id)}/>
                     </div>

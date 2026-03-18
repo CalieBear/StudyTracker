@@ -1,7 +1,15 @@
 /* NEW STYLES */
+/* Tags */
 p{
     margin:0;
 }
+hr {
+  border-top: 1px solid var(--accent-bg); /* use red temporarily to see if it appears */
+  margin: 8px 0;
+  width: 100%;
+}
+
+/* Base Classes */
 .card{
     background-color: var(--card-bg);
     border:1px solid var(--accent-bg);
@@ -13,16 +21,48 @@ p{
 }
 .header{
     font-size: var(--txt-lg);
-    color: var(--txt-label);
+    color: var(--txt);
     text-align: center;
     font-weight: normal;
     font-family: 'Lora', serif;
 }
 .label{
     font-size: var(--txt-md);
-    color: var(--txt-label);
-    font-family: 'Lora', serif;
+    color: var(--txt);
 }
+.card div{
+    display: flex;
+    gap: 12px;
+}
+/* TASK CARD FORMATING */
+.field-label{
+    font-size: var(--txt-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+/* .task-card-title{
+    
+} */
+
+/* Stats Formating */
+.stats-card{
+    padding: 10px 16px;
+}
+.stats-header{
+    font-weight: 600;
+    padding: 0px;
+    padding-left: 5px;
+    margin: 0;
+}
+.stats-label{
+    text-align: center;
+    font-weight: 700;
+    padding: 0;
+    margin: 0;
+    letter-spacing: 0.09em;
+    font-size: var(--txt-xs);
+}
+/* Pills */
 .completed-pill{
     border-radius: var(--radius-pill);
     color: var(--done-txt);
@@ -45,30 +85,8 @@ p{
     padding: 4px 12px;
     border:1px solid var(--todo-txt);
 }
-/* OLD STYLES */
-/* .card {
-    background-color: #E0D7ED;
-    border-radius: 16px;
-    padding: 16px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
 
-.header {
-    font-size: 32px;
-    color: #4A3060;
-    text-align: center;
-    font-weight: normal;
-}
-
-.label {
-    font-size: 24px;
-    color: #4A3060;
-    display: inline;
-    text-align: left;
-} */
-
+/* OTHERS */
 .text {
     font-size: var(--txt-md);
     color:  var(--txt);
@@ -80,20 +98,29 @@ p{
     text-align: center;
 }
 .button {
-    background-color: var(--button-bg);
-    color: #F3EFF7;
-    border-radius: 16px;
-    padding: 16px;
+    font-size: var(--txt-md);
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
     text-align: center;
-    width: 165px;
-    font-size: var(--txt-lg);
+    color: #F3EFF7;
+    background-color: var(--button-bg);
+    border-radius: var(--card-radius);
+    padding: 16px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
 }
 .button-delete{
     background-color: #F2C4CE;
     color: #8B2D42;
 }
-
-.card div{
-    display: flex;
-    gap: 12px;
+.button:hover{
+    transform: translateY(-1px);
+    background-color: var(--button-hov-bg);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+.button-delete:hover{
+    /* change the filter */
+    background-color: var(--delete-btn-hov-bg);
 }

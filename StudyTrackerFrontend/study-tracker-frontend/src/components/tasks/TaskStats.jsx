@@ -6,18 +6,18 @@ function TaskStats({tasks}){
 
 
     return(
-    <div style={{display: 'grid', gap: '16px', gridTemplateColumns: '1fr 1fr 1fr',textAlign: 'center', maxWidth: '600px', alignSelf: 'center'}}>
-        <div className="card">
-            <p className="header">{num}</p>
-            <p className="label">TOTAL TASKS</p>
+    <div style={{display: 'grid', gap: '16px', gridTemplateColumns: '1fr 1fr 1fr',textAlign: 'center', alignSelf: 'center'}}>
+        <div className="card stats-card">
+            <p className="header stats-header">{num}</p>
+            <p className="label stats-label todo-pill">TOTAL TASKS</p>
         </div>
-        <div className="card">
-            <p className="header">{inprogress}</p>
-            <p className="label inprogress-pill">IN PROGRESS</p>
+        <div className="card stats-card">
+            <p className="header stats-header">{inprogress}</p>
+            <p className="label stats-label inprogress-pill">IN PROGRESS</p>
         </div>
-        <div className="card">
-            <p className="header">{completed}</p>
-            <p className="label completed-pill" >COMPLETED</p>
+        <div className="card stats-card">
+            <p className="header stats-header">{completed}</p>
+            <p className="label stats-label completed-pill" >COMPLETED</p>
         </div>
     </div>
     )

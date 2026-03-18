@@ -40,18 +40,23 @@ function CreateTaskForm({onClose, onTaskSubmit}){
 
     return(
     <div className="backdrop" onClick={onClose}>
-        <div className="modal-card">
+        <div className="card modal-card" onClick={e => e.stopPropagation()}>
+            <div>
+                <h2 style = {{fontSize: ' 18px', fontWeight: '600'}}>New Task</h2>
+                {/* exit button goes here */}
+            </div>
             <form onSubmit ={submit}>
-                <label>Name
+                <label><br/>TASK NAME<br/>
                     <input type = "text"
                     value = {name}
                     onChange={e=> setName(e.target.value)} />
                 </label>
-                <label>Subject
+                <label><br/>SUBJECT<br/>
                     <input type = "text"
                     value = {subject}
                     onChange={e=> setSubject(e.target.value)} />
                 </label>
+                <p className="label">STATUS</p>
                 <select
                     value = {status}
                     onChange ={e=>setStatus(e.target.value)}
@@ -61,11 +66,12 @@ function CreateTaskForm({onClose, onTaskSubmit}){
                     <option value="IN_PROGRESS">In Progress</option>
                     <option value="COMPLETED">Done</option>
                 </select>
-                <label>Description
+                <label><br/>DESCRIPTION<br/>
                     <input type = "text"
                     value = {description}
                     onChange={e=> setDescription(e.target.value)} />
                 </label>
+                <br/>
                 <button type = "submit">Submit</button>
             </form>
             {error && <p>{error}</p>}

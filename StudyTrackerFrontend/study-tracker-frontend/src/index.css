@@ -3,7 +3,8 @@
 :root{
   /* backgrounds */
   --card-bg:#ffffff;
-  --page-bg:#E0D7ED;
+
+  --page-bg:#E0D7ED; /*#F3EFF7*/
   --accent-bg:#C5B8D8;
   --navbar-bg:#4A3060;
 
@@ -13,7 +14,9 @@
   --txt-placehold:#9E8CB0;
   /* buttons */
   --button-bg:#4A3060;
+  --button-hov-bg:#7B5EA7;
   --button-txt:#F3EFF7;
+  --delete-btn-hov-bg:#edafbe;
 
   /* input fields */
   --input-bg:#F3EFF7;
@@ -32,20 +35,20 @@
   --progress-bg:#E0D7ED;
   --progress-txt:#7B5EA7;
 
-  /* Spacing */
+  /* Sizing */
   --radius-pill:99px;
   --card-radius:16px;
-  --txt-lg:1.5rem;
-  --txt-md:1rem;
-  --txt-sm:0.7rem;
+  --txt-xl:1.5rem;
+  --txt-lg:1.25rem;/*~20px*/
+  --txt-md:0.9rem; /*~14px*/
+  --txt-sm:0.8rem;/*~13px*/
+  --txt-xs:0.7rem;/*~11.5px*/
   --gap:8px;
   --padding:5%;
-  --card-padding:16px
-}
+  --card-padding:16px;
 
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* leftover stuff */
   line-height: 1.5;
   font-weight: 400;
 
@@ -67,7 +70,7 @@ body {
   font-family: 'Nunito', sans-serif;
 }
 
-h1, h2, h3 {
+h1{
   font-family: 'Lora', serif;
 }
 
@@ -76,9 +79,7 @@ button {
   font-family: inherit;
   cursor: pointer;
 }
-button:hover {
-  border-color: #646cff;
-}
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;

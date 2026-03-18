@@ -10,5 +10,24 @@
     position: fixed;
     top:50%;
     left: 50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
+}
+label{
+    font-size: var(--txt-md);
+    color: var(--txt-label);
+    font-family: 'Lora', serif;
+}
+input{
+    border-radius: var(--radius-pill);
+    color: var(--default-txt);
+    background-color: var( --input-bg);
+    display: inline-block;
+    padding: 4px 12px;
+    border:1px solid var(--default-border);
+}
+input:focus{
+    outline: none;
+    color: var(--focused-txt);
+    background-color: var( --input-bg);
+    border:1px solid var(--focused-border);
 }

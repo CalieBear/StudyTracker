@@ -3,22 +3,26 @@ import '../../styles/Tasks.css';
 function TaskCard({task, onEditClick, onDeleteClick}){
 
     if(task==null){
-    return(<div className="card" >
-        <h1 className="header">Task Card</h1>
+    return(<div className="card" style={{height: '100%'}} >
+        <div>
+            <h1 className="header">Task Card</h1>
+            {/* <p> </p> subject goes here */}
+        </div>
+        <hr/>
         <div >
-            <p className="label">Name: </p>
+            <p className="label field-label">NAME </p>
             <p className="text"> </p> 
         </div>
         <div >
-            <p className="label">Status: </p>
+            <p className="label field-label">STATUS </p>
             <p className="text"> </p>
         </div>
         <div >
-            <p className="label">Subject: </p>
+            <p className="label field-label">SUBJECT </p>
             <p className="text"> </p>
         </div>
         <div > 
-            <p className="label">Description: </p>
+            <p className="label field-label">DESCRIPTION </p>
             <p className="text"> </p>
         </div>
         <div style={{marginTop: 'auto'}}> 
@@ -31,19 +35,19 @@ function TaskCard({task, onEditClick, onDeleteClick}){
     <div className="card">
         <h1 className="header">Task Card</h1>
         <div >
-            <p className="label">Name: </p>
+            <p className="label field-label">NAME </p>
             <p className="text">{task.name ||"" }</p> 
         </div>
         <div>
-            <p className="label">Status: </p>
+            <p className="label field-label">STATUS</p>
             <p className="text">{task.status||""}</p>
         </div>
         <div>
-            <p className="label">Subject: </p>
+            <p className="label field-label">SUBJECT</p>
             <p className="text">{task.subject||""}</p>
         </div>
         <div> 
-            <p className="label">Description: </p>
+            <p className="label field-label">DESCRIPTION</p>
             <p className="text">{task.description||""}</p>
         </div>
         <div style={{marginTop: 'auto'}}> 
