@@ -1,50 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root{
+  /* backgrounds */
+  --card-bg:#ffffff;
+  --page-bg:#E0D7ED;
+  --accent-bg:#C5B8D8;
+  --navbar-bg:#4A3060;
+
+  /* text */
+  --txt-label:#4A3060;
+  --txt:#7B5EA7;
+  --txt-placehold:#9E8CB0;
+  /* buttons */
+  --button-bg:#4A3060;
+  --button-txt:#F3EFF7;
+
+  /* input fields */
+  --input-bg:#F3EFF7;
+  --default-txt:#9E8CB0;
+  --default-border:#C5B8D8;
+  --focused-txt:#4A3060;
+  --focused-border:#7B5EA7;
+
+  /* status pills */
+  --done-bg:#C8DDC5;
+  --done-txt:#2E6B2A;
+  --urgent-bg:#F2C4CE;
+  --urgent-txt:#8B2D42;
+  --todo-bg:#F3EFF7;
+  --todo-txt:#9E8CB0;
+  --progress-bg:#E0D7ED;
+  --progress-txt:#7B5EA7;
+
+  /* Spacing */
+  --radius-pill:99px;
+  --card-radius:16px;
+  --txt-lg:1.5rem;
+  --txt-md:1rem;
+  --txt-sm:0.7rem;
+  --gap:8px;
+  --padding:5%;
+  --card-padding:16px
+}
+
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color:#4A3060;
+
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  min-height: 100vh;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  min-width: 320px; 
+  min-height: 100vh;  
+  background-color: #F3EFF7 ;
+  font-family: 'Nunito', sans-serif;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1, h2, h3 {
+  font-family: 'Lora', serif;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  border: none;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
 button:hover {
   border-color: #646cff;
@@ -54,15 +84,3 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}

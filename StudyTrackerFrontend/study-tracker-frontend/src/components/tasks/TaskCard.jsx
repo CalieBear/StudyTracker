@@ -1,17 +1,55 @@
+import '../../styles/Tasks.css';
 
+function TaskCard({task, onEditClick, onDeleteClick}){
 
-function TaskCard({task, onExitClick, onEditClick, onDeleteClick}){
+    if(task==null){
+    return(<div className="card" >
+        <h1 className="header">Task Card</h1>
+        <div >
+            <p className="label">Name: </p>
+            <p className="text"> </p> 
+        </div>
+        <div >
+            <p className="label">Status: </p>
+            <p className="text"> </p>
+        </div>
+        <div >
+            <p className="label">Subject: </p>
+            <p className="text"> </p>
+        </div>
+        <div > 
+            <p className="label">Description: </p>
+            <p className="text"> </p>
+        </div>
+        <div style={{marginTop: 'auto'}}> 
+            <button className="button" >Edit</button> 
+            <button className="button button-delete" >Delete</button>
+        </div>
+    </div>)
+    }
     return(
-    <div><div>
-        <h1>{task.name}</h1>
-        <button onClick={onExitClick}>Exit</button> {/*want this to be in the top right corner*/}
-        <ul>
-            <li>{task.status}</li>
-            <li>{task.subject}</li>
-            <li>{task.description}</li>
-        </ul>
-        <button onClick={onEditClick}>Edit</button> {/*want these buttons to be next to each other*/}
-        <button onClick={onDeleteClick}>Delete</button>
-    </div></div>)
+    <div className="card">
+        <h1 className="header">Task Card</h1>
+        <div >
+            <p className="label">Name: </p>
+            <p className="text">{task.name ||"" }</p> 
+        </div>
+        <div>
+            <p className="label">Status: </p>
+            <p className="text">{task.status||""}</p>
+        </div>
+        <div>
+            <p className="label">Subject: </p>
+            <p className="text">{task.subject||""}</p>
+        </div>
+        <div> 
+            <p className="label">Description: </p>
+            <p className="text">{task.description||""}</p>
+        </div>
+        <div style={{marginTop: 'auto'}}> 
+            <button className="button" onClick={onEditClick}>Edit</button> 
+            <button className="button button-delete" onClick={onDeleteClick}>Delete</button>
+        </div>
+    </div>)
 }
 export default TaskCard

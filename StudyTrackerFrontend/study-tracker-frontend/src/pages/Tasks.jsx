@@ -1,11 +1,11 @@
-//todo
-//find tasks by filter
-
 import { useEffect,useState } from "react"
 import TaskList from "../components/tasks/TaskList";
 import TaskCard from "../components/tasks/TaskCard";
 import CreateTaskForm from "../components/tasks/CreateTaskForm";
 import EditTaskForm from "../components/tasks/EditTaskForm";
+import '../styles/Tasks.css';
+import Navbar from "../components/common/Navbar";
+import TaskStats from "../components/tasks/TaskStats"
 
 function Tasks(){
     const [tasks, setTasks]= useState([]);
@@ -13,25 +13,14 @@ function Tasks(){
     const [displayTasks, setDisplayTasks]=useState([]);
 
     const [selectedTask, setSelectedTask] =  useState(null);
-    const [showTaskCard, setShowTaskCard] =  useState(false);
     const [showCreateForm, setShowCreateForm] =  useState(false);
     const [showEditForm, setShowEditForm] =  useState(false);
 
-    //FILTER
-    function setFilter(){
-        //would it be better to sort them by collumns then have a search box
-        
-    }
+    //Filter/Sorting/Search
 
     //TASK CARD
     function openTaskCard(task){
         setSelectedTask(task);
-        setShowTaskCard(true);
-        //do i put an if statement in the return?
-    }
-    function exitTaskCard(){
-        setShowTaskCard(false);
-        setSelectedTask(null);
     }
     //EDIT FORM
     function openEditForm(){
@@ -65,7 +54,6 @@ function Tasks(){
         })
         .then(res => {
             if(res.ok){
-                setShowTaskCard(false);
                 setSelectedTask(null);
                 setTasks(tasks.filter(task=> task.id !== taskId));
             }else{
@@ -83,12 +71,27 @@ function Tasks(){
         .catch(()=> setError("Unexepcted Error Occured"))
     },[])//NEEDS TO RUN WHEN FILTER CHANGED
 
-    return <div>
-        {(!showCreateForm && !showEditForm && !showTaskCard) && <TaskList tasks = {displayTasks} onTaskClick={openTaskCard} /> }
-        {showTaskCard && <TaskCard task = {selectedTask} onExitClick = {exitTaskCard} onEditClick = {openEditForm} onDeleteClick ={()=> deleteTask(selectedTask.id)}/>}
-        {showEditForm && <EditTaskForm task = {selectedTask} onClose={exitEditForm} onTaskSubmit={taskEdited} />}
-        {showCreateForm && <CreateTaskForm onClose = {exitCreateForm} onTaskSubmit={taskCreated}/>}
-        {(!showCreateForm && !showEditForm && !showTaskCard) && <button onClick={openCreateForm}>Create</button>}
-    </div>
+    return (
+    <div style={{display: 'flex', flexDirection: 'column', height: '100vh'}}>
+        <Navbar />
+        <div style={{padding: '2%', boxSizing: 'border-box', flex: 1, overflow: 'hidden'}}>
+            <div style={{display: 'grid', gap: '5%', height: '100%', gridTemplateColumns: '1fr 400px' }}>
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                    <TaskStats tasks={tasks}/>
+                    {/* search bar and filter goes here */}
+                    <br/><br/>
+                    <TaskList tasks = {tasks} onTaskClick={openTaskCard} />
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                    {(!showCreateForm && !showEditForm ) && <button className="button" style={{width: '100%', marginBottom:'5%'}} onClick={openCreateForm}>Create New Task</button>}
+                    <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
+                        <TaskCard task = {selectedTask} onEditClick = {openEditForm} onDeleteClick ={()=> deleteTask(selectedTask.id)}/>
+                    </div>
+                </div>
+            </div>
+            {showEditForm && <EditTaskForm task = {selectedTask} onClose={exitEditForm} onTaskSubmit={taskEdited} />}
+            {showCreateForm && <CreateTaskForm onClose = {exitCreateForm} onTaskSubmit={taskCreated}/>}
+        </div>
+    </div>)
 }
 export default Tasks
