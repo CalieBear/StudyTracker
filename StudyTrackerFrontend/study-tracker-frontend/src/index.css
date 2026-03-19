@@ -40,6 +40,7 @@
   --card-radius:16px;
   --txt-xl:1.5rem;
   --txt-lg:1.25rem;/*~20px*/
+  --txt-ml:1.05rem;
   --txt-md:0.9rem; /*~14px*/
   --txt-sm:0.8rem;/*~13px*/
   --txt-xs:0.7rem;/*~11.5px*/
@@ -83,5 +84,17 @@ button {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.navbar{
+  background-color: #4A3060;
+  padding: 0 2rem;
+  height: 60px;
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(74, 48, 96, 0.10);
+  position: relative;
 }
 

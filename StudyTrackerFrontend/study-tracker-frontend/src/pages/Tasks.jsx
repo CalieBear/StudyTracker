@@ -74,8 +74,8 @@ function Tasks(){
     return (
     <div style={{display: 'flex', flexDirection: 'column', height: '100vh'}}>
         <Navbar />
-        <div style={{padding: '2%', boxSizing: 'border-box', flex: 1, overflow: 'hidden'}}>
-            <div style={{display: 'grid', gap: '5%', height: '100%', gridTemplateColumns: '1fr 400px' }}>
+        <div style={{boxSizing: 'border-box', flex: 1, overflow: 'hidden',margin:'0 auto', maxWidth:'1200px'}}>
+            <div style={{display: 'grid', gap: '1.5rem', height: '100%', gridTemplateColumns: '1fr 380px',padding: '1.75rem 2rem' }}>
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     <TaskStats tasks={tasks}/>
                     {/* search bar and filter goes here */}
@@ -84,7 +84,7 @@ function Tasks(){
                 </div>
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     <button className="button" style={{width: '100%', marginBottom:'5%'}} onClick={openCreateForm}>Create New Task</button>
-                    <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
+                    <div style={{flex: 1, display: 'flex', flexDirection: 'column',marginBottom:'15%'}}>
                         <TaskCard task = {selectedTask} onEditClick = {openEditForm} onDeleteClick ={()=> deleteTask(selectedTask.id)}/>
                     </div>
                 </div>
