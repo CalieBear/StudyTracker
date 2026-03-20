@@ -9,15 +9,15 @@ function TaskStats({tasks}){
     <div style={{display: 'grid', gap: '16px', gridTemplateColumns: '1fr 1fr 1fr',textAlign: 'center', alignSelf: 'center'}}>
         <div className="card stats-card">
             <p className="header stats-header">{num}</p>
-            <p className="label stats-label todo-pill">TOTAL TASKS</p>
+            <p className="label stats-label pill todo-pill">TOTAL TASKS</p>
         </div>
         <div className="card stats-card">
             <p className="header stats-header">{inprogress}</p>
-            <p className="label stats-label inprogress-pill">IN PROGRESS</p>
+            <p className="label stats-label pill inprogress-pill">IN PROGRESS</p>
         </div>
         <div className="card stats-card">
             <p className="header stats-header">{completed}</p>
-            <p className="label stats-label completed-pill" >COMPLETED</p>
+            <p className="label stats-label pill completed-pill" >COMPLETED</p>
         </div>
     </div>
     )

@@ -4,34 +4,49 @@ function TaskList({tasks, onTaskClick}){
 
     function getPill(task){
         if(task.status === "NOT_STARTED"){
-            return <td className='tableText todo-pill'>Not Started</td>
+            return <span className='list-pill pill todo-pill'><span className='pill-dot'/>Not Started</span>
         }else if(task.status === "IN_PROGRESS"){
-            return <td className='tableText inprogress-pill'>In Progress</td>
+            return <span className='list-pill pill inprogress-pill'><span className='pill-dot'/>In Progress</span>
         }else if(task.status === "COMPLETED"){
-            return <td className='tableText completed-pill'>Completed</td>
+            return <span className='list-pill pill completed-pill'><span className='pill-dot'/>Completed</span>
         }
     }
-    return(
-        <div className='card'>
-        <table style = {{width: '100%', tableLayout: 'fixed'}}>
-            <thead>
-                <tr>
-                    <th className='header'>Name</th>
-                    <th className='header'>Subject</th>
-                    <th className='header'>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {tasks.map(task =>(
-                    <tr key = {task.id} onClick ={() => onTaskClick(task)} >
-                        <td className='tableText'>{task.name}</td>
-                        <td className='tableText'>{task.subject}</td>
-                        {getPill(task)}
-                    </tr> 
-                ))}
-            </tbody>
-        </table>
+    // return(
+    //     <div className='card'>
+    //     <table style = {{width: '100%', tableLayout: 'fixed'}}>
+    //         <thead>
+    //             <tr>
+    //                 <th className='header'>Name</th>
+    //                 <th className='header'>Subject</th>
+    //                 <th className='header'>Status</th>
+    //             </tr>
+    //         </thead>
+    //         <tbody>
+    //             {tasks.map(task =>(
+    //                 <tr key = {task.id} onClick ={() => onTaskClick(task)} >
+    //                     <td className='tableText'>{task.name}</td>
+    //                     <td className='tableText'>{task.subject}</td>
+    //                     {getPill(task)}
+    //                 </tr> 
+    //             ))}
+    //         </tbody>
+    //     </table>
+    //     </div>
+    // )
+    return(<div className='card' style={{position:'relative',padding:'0'}}>
+        <div className='bookmark'/>
+        <div className='task-table-header'>
+            <span>Name</span>
+            <span>Subject</span>
+            <span>Status</span>
         </div>
-    )
+        {tasks.map(task =>(
+                    <div className='task-row' key = {task.id} onClick ={() => onTaskClick(task)}>
+                        <span className='task-name'>{task.name}</span>
+                        <span className='task-subject'>{task.subject}</span>
+                        <span>{getPill(task)}</span>
+                    </div>
+                ))}
+    </div>)
 }
 export default TaskList
