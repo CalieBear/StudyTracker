@@ -1,9 +1,10 @@
 import "./modalstyles.css";
+import '../../styles/Tasks.css';
 import {useState} from "react";
 function CreateTaskForm({onClose, onTaskSubmit}){
     const [name, setName]=useState("");
     const [subject, setSubject]=useState("");
-    const [status, setStatus]=useState("");
+    const [status, setStatus]=useState("NOT_STARTED");
     const [description, setDescription]=useState("");
     const [error, setError]=useState("");
 
@@ -41,41 +42,49 @@ function CreateTaskForm({onClose, onTaskSubmit}){
     return(
     <div className="backdrop" onClick={onClose}>
         <div className="card modal-card" onClick={e => e.stopPropagation()}>
-            <div>
-                <h2 style = {{fontSize: ' 18px', fontWeight: '600'}}>New Task</h2>
-                {/* exit button goes here */}
+            <div className="modal-header">
+                <span >New Task</span>
+                <button type="button" className="button-basic" onClick={onClose}>X</button>
             </div>
             <form onSubmit ={submit}>
-                <label><br/>TASK NAME<br/>
-                    <input type = "text"
-                    value = {name}
-                    onChange={e=> setName(e.target.value)} />
-                </label>
-                <label><br/>SUBJECT<br/>
-                    <input type = "text"
+                <div className="form-group">   
+                    <label className="modal-label">TASK NAME</label>
+                    <input className="form-input" type = "text" value = {name} placeholder="e.g. Assignment 1"
+                        onChange={e=> setName(e.target.value)} />
+                </div>
+                <div className="form-group">   
+                    <label className="modal-label">SUBJECT</label>
+                    <input className="form-input" type = "text" placeholder="e.g. Math"
                     value = {subject}
                     onChange={e=> setSubject(e.target.value)} />
-                </label>
-                <p className="label">STATUS</p>
-                <select
-                    value = {status}
-                    onChange ={e=>setStatus(e.target.value)}
-                >
-                    <option value="">Select Status</option>
-                    <option value="NOT_STARTED">Not Started</option>
-                    <option value="IN_PROGRESS">In Progress</option>
-                    <option value="COMPLETED">Done</option>
-                </select>
-                <label><br/>DESCRIPTION<br/>
-                    <input type = "text"
+                </div>
+
+                <label className="modal-label">Status</label>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                    
+                    <input type="radio" id="not-started" value="NOT_STARTED"
+                        checked={status === "NOT_STARTED"}
+                        onChange={e => setStatus(e.target.value)}/>
+                    <label htmlFor="not-started" className="pill todo-pill">Not Started</label>
+                    <input type="radio" id="in-progress" value="IN_PROGRESS"
+                        checked={status === "IN_PROGRESS"}
+                        onChange={e => setStatus(e.target.value)}/>
+                    <label htmlFor="in-progress" className="pill inprogress-pill">In Progress</label>
+                    <input type="radio" id="completed" value="COMPLETED"
+                        checked={status === "COMPLETED"}
+                        onChange={e => setStatus(e.target.value)}/>
+                    <label htmlFor="completed" className="pill completed-pill">Done</label>
+                </div>
+                <div className="form-group">   
+                    <label className="modal-label">DESCRIPTION</label>
+                    <textarea className="form-input form-description" type = "text" placeholder="Any notes or details..."
                     value = {description}
                     onChange={e=> setDescription(e.target.value)} />
-                </label>
-                <br/>
-                <button type = "submit">Submit</button>
+                </div>
+                    <button style={{marginTop: 'auto'}} className="button" type = "submit">Submit</button>
             </form>
             {error && <p>{error}</p>}
-            <button onClick={onClose}>Exit</button>
+            
         </div>
     </div>)
 }

@@ -4,30 +4,71 @@
     left:0;
     width:100%;
     height:100%;
-    background: rgba(0,0,0,0.4);
+    background: rgba(30, 12, 50, 0.45);
 }
 .modal-card{
     position: fixed;
     top:50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 460px;
+    padding: 1.75rem;
 }
-label{
-    font-size: var(--txt-md);
+.modal-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    font-size: var(--txt-lg);
+    font-weight: 600;
+}
+.modal-label{
+    font-size: var(--txt-sm);
     color: var(--txt-label);
-    font-family: 'Lora', serif;
+    display: block;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    margin-bottom: 6px;
+    color:var(--txt);
 }
-input{
-    border-radius: var(--radius-pill);
+.form-group{
+    margin-bottom: 1.1rem;
+}
+.form-input{
+    width:100%;
+    box-sizing: border-box;
+    border-radius: 9px;
     color: var(--default-txt);
     background-color: var( --input-bg);
     display: inline-block;
-    padding: 4px 12px;
-    border:1px solid var(--default-border);
+    padding: 10px 13px;
+    border:1px solid #C5B8D8;
+    color: var(--focused-txt);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-description{
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.5;
 }
 input:focus{
     outline: none;
     color: var(--focused-txt);
     background-color: var( --input-bg);
     border:1px solid var(--focused-border);
+}
+/* default - all pills get a border */
+input[type="radio"] + label {
+  border: 1.5px solid transparent;
+}
+
+/* selected - border becomes visible and bold */
+input[type="radio"]:checked + label {
+  border: 2.5px solid currentColor;
+}
+/* hide the actual radio button */
+input[type="radio"] {
+  display: none;
 }

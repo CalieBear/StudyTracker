@@ -63,7 +63,7 @@ hr {
     border-radius: 8px;
     color: var(--progress-txt);
     background-color:#EDE7F5;
-    border:1px solid #C588D8;
+    border:1px solid #C5B8D8;
     /* colors are sligtly off */
     font-size: var(--txt-md);
     display: inline;
@@ -152,6 +152,20 @@ hr {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
 }
+.button-basic{
+    border: 1px solid #C5B8D8;
+    background: transparent;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    color:var(--txt);
+    font-size: 16px;
+    transition: background 0.15s;
+}
+.button-basic:hover{
+    background-color: #EDE7F5;
+}
 .button-delete{
     background-color: #F2C4CE;
     color: #8B2D42;
@@ -214,7 +228,6 @@ hr {
 /* table */
 .bookmark {
     position: absolute;
-    top: -4px;
     right: 24px;
     width: 18px;
     height: 28px;
@@ -250,13 +263,13 @@ hr {
     cursor: pointer;
 }
 .task-name{
-    /* fotn 14px */
+    font-size:var(--txt-md);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 .task-subject{    
-    /* font-size: 13px; */
+    font-size: var(--txt-sm);
     margin:0;
     padding:0;
     color: var(--txt);
@@ -268,7 +281,11 @@ hr {
     background-color: var(--page-bg);
 }
 .task-row.active{
-    background: rgba(107, 76, 42, 0.06); /*DOESNT WORK, GOTTA CHANGE COLOR IT UGLY*/
+    background: rgba(123, 94, 167, 0.06); /*DOESNT WORK, GOTTA CHANGE COLOR IT UGLY*/
+}
+.task-row.active .task-name{
+    color:var(--txt);
+    font-weight: 700;
 }
 
 .list-pill{
@@ -278,4 +295,15 @@ hr {
     font-weight: 700;
     letter-spacing: 0.03em;
     width: fit-content;
+}
+
+.main{
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 1.5rem;
+    padding: 1.75rem 2rem;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
 }

@@ -1,6 +1,6 @@
 import '../../styles/Tasks.css';
 import {useState} from "react";
-function TaskList({tasks, onTaskClick}){
+function TaskList({tasks,selectedTask, onTaskClick}){
 
     function getPill(task){
         if(task.status === "NOT_STARTED"){
@@ -11,28 +11,6 @@ function TaskList({tasks, onTaskClick}){
             return <span className='list-pill pill completed-pill'><span className='pill-dot'/>Completed</span>
         }
     }
-    // return(
-    //     <div className='card'>
-    //     <table style = {{width: '100%', tableLayout: 'fixed'}}>
-    //         <thead>
-    //             <tr>
-    //                 <th className='header'>Name</th>
-    //                 <th className='header'>Subject</th>
-    //                 <th className='header'>Status</th>
-    //             </tr>
-    //         </thead>
-    //         <tbody>
-    //             {tasks.map(task =>(
-    //                 <tr key = {task.id} onClick ={() => onTaskClick(task)} >
-    //                     <td className='tableText'>{task.name}</td>
-    //                     <td className='tableText'>{task.subject}</td>
-    //                     {getPill(task)}
-    //                 </tr> 
-    //             ))}
-    //         </tbody>
-    //     </table>
-    //     </div>
-    // )
     return(<div className='card' style={{position:'relative',padding:'0'}}>
         <div className='bookmark'/>
         <div className='task-table-header'>
@@ -41,7 +19,8 @@ function TaskList({tasks, onTaskClick}){
             <span>Status</span>
         </div>
         {tasks.map(task =>(
-                    <div className='task-row' key = {task.id} onClick ={() => onTaskClick(task)}>
+                    <div className= {`task-row ${selectedTask?.id === task.id ? 'active' : ''}`}
+                        key = {task.id} onClick ={() => onTaskClick(task)}>
                         <span className='task-name'>{task.name}</span>
                         <span className='task-subject'>{task.subject}</span>
                         <span>{getPill(task)}</span>

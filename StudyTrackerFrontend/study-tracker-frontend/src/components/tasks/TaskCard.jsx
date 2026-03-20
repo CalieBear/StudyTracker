@@ -3,11 +3,11 @@ import '../../styles/Tasks.css';
 function TaskCard({task, onEditClick, onDeleteClick}){
     function getPill(task){
         if(task.status === "NOT_STARTED"){
-            return <td className='pill todo-pill'>Not Started</td>
+            return <span className='pill todo-pill'>Not Started</span>
         }else if(task.status === "IN_PROGRESS"){
-            return <td className='pill inprogress-pill'>In Progress</td>
+            return <span className='pill inprogress-pill'>In Progress</span>
         }else if(task.status === "COMPLETED"){
-            return <td className='pill completed-pill'>Completed</td>
+            return <span className='pill completed-pill'>Completed</span>
         }
     }
 
@@ -19,7 +19,7 @@ function TaskCard({task, onEditClick, onDeleteClick}){
         <hr/>
         <div className="field" >
             <p className="label field-label">NAME </p>
-            <p className="text"> </p> 
+            <p className="text"></p> 
         </div>
         <div className="field" >
             <p className="label field-label">STATUS </p>
@@ -34,7 +34,7 @@ function TaskCard({task, onEditClick, onDeleteClick}){
             <p className="text"> </p>
         </div>
         <hr/>
-        <div style={{marginTop: 'auto',display:'flex'}}> 
+        <div style={{marginTop: 'auto',display:'flex',gap:'1rem'}}> 
             <button className="button" >Edit</button> 
             <button className="button button-delete" >Delete</button>
         </div>
@@ -64,7 +64,7 @@ function TaskCard({task, onEditClick, onDeleteClick}){
             <p className="field-desc">{task.description||<span style={{opacity:'0.45'}}>No description added yet.</span>}</p>
         </div>
         <hr/>
-        <div style={{marginTop: 'auto',display:'flex'}}> 
+        <div style={{marginTop: 'auto',display:'flex',gap:'1rem'}}> 
             <button className="button" onClick={onEditClick}>Edit</button> 
             <button className="button button-delete" onClick={onDeleteClick}>Delete</button>
         </div>
