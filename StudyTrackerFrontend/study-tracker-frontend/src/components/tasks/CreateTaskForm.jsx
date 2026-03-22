@@ -36,7 +36,9 @@ function CreateTaskForm({onClose, onTaskSubmit}){
                     onClose();
                 }
             })
-            .catch(err => setError("Task Creation Error"));
+            .catch(err => {
+                console.error("Fetch error:", err);
+                setError("Task Creation Error");});
     }
 
     return(

@@ -45,7 +45,7 @@
     display: inline-block;
     padding: 10px 13px;
     border:1px solid #C5B8D8;
-    color: var(--focused-txt);
+    /* color: var(--focused-txt); */
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 .form-description{
@@ -53,7 +53,7 @@
     min-height: 80px;
     line-height: 1.5;
 }
-input:focus{
+.form-input:focus{
     outline: none;
     color: var(--focused-txt);
     background-color: var( --input-bg);

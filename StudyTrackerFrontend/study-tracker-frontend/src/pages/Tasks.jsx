@@ -1,15 +1,17 @@
 import { useEffect,useState } from "react"
+
 import TaskList from "../components/tasks/TaskList";
 import TaskCard from "../components/tasks/TaskCard";
 import CreateTaskForm from "../components/tasks/CreateTaskForm";
 import EditTaskForm from "../components/tasks/EditTaskForm";
-import '../styles/Tasks.css';
 import Navbar from "../components/common/Navbar";
 import TaskStats from "../components/tasks/TaskStats"
+import SearchFilter from "../components/tasks/SearchFilter";
 
+import '../styles/Tasks.css';
 function Tasks(){
     const [tasks, setTasks]= useState([]);
-    const [filter, setFilter] = useState({subject: "", status:""});
+    const [filter, setFilter] = useState({search: "", status:""});
     const [displayTasks, setDisplayTasks]=useState([]);
 
     //which task is being edited/viewed
@@ -30,6 +32,17 @@ function Tasks(){
     },[])
 
     //Filter/Sorting/Search
+    useEffect(() => {
+        setDisplayTasks(
+            tasks.sort((a, b) =>
+            a.name.localeCompare(b.name) 
+            )
+            .filter((t) =>
+            t.name.toLowerCase().includes(filter.search.toLowerCase()) ||
+            t.subject.toLowerCase().includes(filter.search.toLowerCase())
+            )
+        );
+    }, [tasks, filter]);
 
     //TASK CARD
     function openTaskCard(task){
@@ -41,10 +54,10 @@ function Tasks(){
     }
     function exitEditForm(){
         setShowEditForm(false);
-        setSelectedTask(null);
     }
     function taskEdited(task){
         setTasks(tasks.map(t => t.id === task.id ? task : t));
+        setSelectedTask(task);
     }
 
     //CREATE FORM
@@ -58,6 +71,7 @@ function Tasks(){
         if(newTask!=null){
             setTasks([...tasks,newTask])
         }
+        setSelectedTask(newTask);
     }
 
     //DELETE TASK
@@ -84,14 +98,11 @@ function Tasks(){
         <div className="main">
             {/* LEFT COLUMN */}
             <div style={{display: 'flex', flexDirection: 'column',gap: '1rem'}}>
-                <TaskStats tasks={tasks}/>
+                <TaskStats tasks={displayTasks}/>
                 {/* search bar and filter goes here */}
-                {/* <div>
-                    <input className="form-input" placeholder="Search tasks..."/>
-                    <button className= "button-basic" style={{width:'auto',height:"auto"}}>Filter</button>
-                </div> */}
+                <SearchFilter filter={filter} setFilter={setFilter}/>
                 
-                <TaskList tasks = {tasks} onTaskClick={openTaskCard} selectedTask={selectedTask}/>
+                <TaskList tasks = {displayTasks} onTaskClick={openTaskCard} selectedTask={selectedTask}/>
             </div>
             {/* RIGHT COLUMN */}
             <div style={{display: 'flex', flexDirection: 'column'}}>
